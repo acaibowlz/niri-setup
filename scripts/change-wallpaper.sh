@@ -1,9 +1,27 @@
 #!/bin/bash
-wallpaper_dir="$HOME/Pictures/Wallpapers"
+wallpaper_dir="$HOME/Pictures/wallpapers"
 export GUM_CHOOSE_HEADER_FOREGROUND="#d8dadd"
 export GUM_CHOOSE_SELECTED_FOREGROUND="#758A9B"
 export GUM_CHOOSE_CURSOR_FOREGROUND="#758A9B"
 
+# deps check
+_is_installed() {
+  pacman -Qi "$1" &>/dev/null
+}
+
+deps=(fd imagemagick swaybg awww)
+missing=()
+
+for dep in "${deps[@]}"; do
+  _is_installed "$dep" || missing+=("$dep")
+done
+
+if [[ -n ${missing[*]} ]]; then
+  echo "[ERROR] missing dependencies: ${missing[*]}"
+  return 1
+fi
+
+# main logic
 if [ ! -d "$wallpaper_dir" ]; then
   mkdir -p "$wallpaper_dir"
 fi
@@ -34,9 +52,9 @@ nohup sh -c "$workspace_cmd" >/dev/null 2>&1 &
 
 echo "[INFO] Creating new overview backdrop..."
 magick "$NIRICONF/wallpapers/workspace.${image##*.}" -scale 10% -blur 0x2.5 -resize 1000% "$NIRICONF/wallpapers/backdrop.${image##*.}"
-backdrop_cmd="swww-daemon \& swww img $NIRICONF/wallpapers/backdrop.${image##*.}"
-swww img "$NIRICONF/wallpapers/backdrop.${image##*.}"
-sed -i "s|^spawn-sh-at-startup \"swww.*img.*|spawn-sh-at-startup \"$backdrop_cmd\"|" "$NIRICONF/niri/config.kdl"
+backdrop_cmd="awww-daemon \& awww img $NIRICONF/wallpapers/backdrop.${image##*.}"
+awww img "$NIRICONF/wallpapers/backdrop.${image##*.}"
+sed -i "s|^spawn-sh-at-startup \"awww.*img.*|spawn-sh-at-startup \"$backdrop_cmd\"|" "$NIRICONF/niri/config.kdl"
 
 echo "[INFO] Done!"
 read -n 1 -s -r -p "[INFO] Press any key to finish..."

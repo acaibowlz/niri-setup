@@ -8,9 +8,9 @@ window-rule {
 
 window-rule {
     match app-id="firefox"
-    match app-id="code"
+    match app-id="Code"
     match app-id="dev.zed.Zed"
-    open-maximized-to-edges true
+    open-maximized true
 }
 
 window-rule {

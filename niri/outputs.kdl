@@ -15,12 +15,12 @@ output "HDMI-A-1" {
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
     // left
-    position x=-1920 y=0
+    // position x=-1920 y=0
     // right
     // position x=1920 y=0
     // top
     // the value would be based on the connected monitor
-    //position x=0 y=-1080
+    position x=0 y=-1080
 }
 output "DP-1" {
     transform "normal"

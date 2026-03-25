@@ -1,7 +1,7 @@
 // background for workspace and backdrop
-spawn-sh-at-startup "swww-daemon & swww img $NIRICONF/wallpapers/backdrop.jpg"
-spawn-sh-at-startup "swaybg -i $NIRICONF/wallpapers/workspace.jpg -m fill -c '#010102'"
+spawn-sh-at-startup "awww-daemon & awww img /home/hank/Code/niri-setup/wallpapers/backdrop.jpg"
+spawn-sh-at-startup "swaybg -i /home/hank/Code/niri-setup/wallpapers/workspace.jpg -m fill -c '#010102'"
 layer-rule {
-    match namespace="^swww-daemon$"
+    match namespace="^awww-daemon$"
     place-within-backdrop true
 }
